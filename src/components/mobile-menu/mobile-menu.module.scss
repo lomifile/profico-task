@@ -68,3 +68,9 @@
   width: 100%;
   text-align: center;
 }
+
+@media (width >= 64em) {
+  .menu-button {
+    display: none;
+  }
+}

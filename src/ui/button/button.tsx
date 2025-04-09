@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes } from "react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
-  color?: "primary" | "white";
+  color?: "primary" | "white" | "transparent";
 }
 
 export const Button = ({
@@ -19,7 +19,7 @@ export const Button = ({
       className={clsx(
         styles["button-base"],
         styles[color],
-        className && className,
+        className && className
       )}
       disabled={isLoading}
       {...props}

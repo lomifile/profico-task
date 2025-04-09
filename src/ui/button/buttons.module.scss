@@ -21,3 +21,25 @@
   background-color: $color-primary-100;
   color: white;
 }
+
+.white {
+  background-color: white;
+  color: black;
+}
+
+.white:hover {
+  cursor: pointer;
+}
+
+.transparent {
+  background-color: transparent;
+  display: inline;
+  color: white;
+  width: $full;
+  padding: 0;
+}
+
+.transparent:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

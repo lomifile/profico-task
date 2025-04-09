@@ -1,0 +1,29 @@
+@use "@app/styles/variables" as *;
+
+.latest-item {
+  width: 100%;
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.time {
+  font-weight: 700;
+  font-size: 0.625em;
+  line-height: 1em;
+  color: $color-blue;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 1em;
+  color: black;
+  line-height: 1.5em;
+}
+
+.separator {
+  width: $full;
+  height: 1px;
+  background-color: $color-gray-50;
+}

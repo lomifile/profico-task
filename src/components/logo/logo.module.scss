@@ -1,0 +1,22 @@
+@use "@app/styles/variables" as *;
+
+.logo-container {
+  display: flex;
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+.large {
+  font-size: 2em;
+}
+
+.first-part {
+  color: $color-primary;
+}
+
+.second-part {
+  color: $color-gray;
+}

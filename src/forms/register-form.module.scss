@@ -1,0 +1,10 @@
+@use "@app/styles/variables" as *;
+
+.register-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 5px;
+  height: max-content;
+}

@@ -1,0 +1,17 @@
+@use "@app/styles/variables" as *;
+
+.login-container {
+  border-radius: $rounded-border;
+}
+
+.login-title {
+  color: $color-gray;
+  text-align: center;
+}
+
+.login-form-container {
+  width: $full;
+  height: fit-content;
+  padding: 10px;
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+@use "@app/styles/variables" as *;
+
+.register-container {
+  border-radius: $rounded-border;
+}
+
+.register-title {
+  text-align: center;
+  color: $color-gray;
+}
+
+.register-form-container {
+  width: $full;
+  height: fit-content;
+  padding: 10px;
+}

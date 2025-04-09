@@ -1,0 +1,19 @@
+@use "@app/styles/variables" as *;
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: $full;
+  height: $full;
+  padding: 0.2em 1.2em;
+}
+
+.home-content {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  height: $full;
+  width: $full;
+  overflow-y: auto;
+}

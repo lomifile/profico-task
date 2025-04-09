@@ -1,0 +1,28 @@
+@use "@app/styles/variables" as *;
+
+.search-bar {
+  width: $full;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.search-bar-input {
+  background-color: transparent;
+  color: $color-gray-100;
+  border: none;
+  outline: none;
+  width: $full;
+  height: $full;
+  padding: 0.8em;
+}
+
+.search-bar-icon {
+  color: $color-gray-100;
+}
+
+.search-bar-input:placeholder {
+  color: $color-gray-100;
+}

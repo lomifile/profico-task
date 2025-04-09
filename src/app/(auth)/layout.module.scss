@@ -1,0 +1,14 @@
+@use "@app/styles/variables" as *;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  width: $full;
+  height: $full;
+}
+
+.main {
+  flex: 1;
+  width: $full;
+  height: $full;
+}

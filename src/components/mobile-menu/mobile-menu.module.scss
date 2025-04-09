@@ -1,0 +1,70 @@
+@use "@app/styles/variables" as *;
+
+.menu-content {
+  position: fixed;
+  background-color: $color-bg-light;
+  top: 0;
+  width: $full;
+  height: $full;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  overflow-y: auto;
+}
+
+.menu-close-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.menu-close-button-container {
+  width: $full;
+  padding: 1em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menu-button {
+  color: black;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.menu-button:hover {
+  cursor: pointer;
+}
+
+.menu-title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.menu-navigation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1em;
+  gap: 10px;
+}
+
+.navigation {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 6em);
+  justify-content: center;
+  margin: 0;
+  gap: 20px;
+  text-wrap: pretty;
+}
+
+.auth-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}

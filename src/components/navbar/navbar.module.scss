@@ -1,0 +1,23 @@
+@use "@app/styles/variables" as *;
+
+.navbar {
+  background-color: transparent;
+  height: $navbar-height;
+  display: inline-block;
+  width: 100%;
+}
+
+.navbar-body {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo-container {
+  background-color: transparent;
+  color: $color-gray;
+}

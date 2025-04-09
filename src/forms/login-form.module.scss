@@ -1,0 +1,16 @@
+@use "@app/styles/variables" as *;
+
+.login-form {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  padding: 20px 5px;
+  height: max-content;
+}
+
+.login-button {
+  width: $full;
+}

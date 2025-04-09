@@ -1,0 +1,23 @@
+@use "@app/styles/variables" as *;
+
+.button-base {
+  padding: 1em;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: $full;
+}
+
+.button-base:hover {
+  cursor: pointer;
+}
+
+.primary {
+  background-color: $color-primary;
+  color: white;
+}
+
+.primary:hover {
+  background-color: $color-primary-100;
+  color: white;
+}

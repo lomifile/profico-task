@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `verification_token` text;

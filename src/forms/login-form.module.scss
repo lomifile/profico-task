@@ -14,3 +14,10 @@
 .login-button {
   width: $full;
 }
+
+.not-user {
+  display: flex;
+  padding: 0.1em;
+  flex-direction: row;
+  justify-content: flex-end;
+}

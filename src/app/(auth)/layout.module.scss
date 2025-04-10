@@ -3,6 +3,7 @@
 .section {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: $full;
   height: $full;
 }
@@ -11,4 +12,10 @@
   flex: 1;
   width: $full;
   height: $full;
+}
+
+@media (min-width: 62em) {
+  .main {
+    width: 50%;
+  }
 }

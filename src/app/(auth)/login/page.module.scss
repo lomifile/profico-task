@@ -1,6 +1,7 @@
 @use "@app/styles/variables" as *;
 
 .login-container {
+  width: $full;
   border-radius: $rounded-border;
 }
 
@@ -14,4 +15,18 @@
   height: fit-content;
   padding: 10px;
   text-align: center;
+}
+
+@media (min-width: 62em) {
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+  }
+
+  .login-form-container {
+    width: 50%;
+  }
 }

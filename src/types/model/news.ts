@@ -15,6 +15,7 @@ export interface Source {
 }
 
 export interface News {
+  nextPageParam: unknown;
   status: "ok" | "failed";
   totalResults: number;
   articles: Articles[];

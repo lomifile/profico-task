@@ -10,45 +10,53 @@ import {
   SportsIcon,
   TechnologyIcon,
 } from "@app/ui/custom-icons/icons";
-import { usePathname } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 export const Menu = () => {
-  const path = usePathname();
+  const queryParams = useSearchParams();
+  const param = queryParams.get("q");
+  const router = useRouter();
+  const redirectSearchParams = new URLSearchParams(queryParams);
+
+  const params = useSearchParams();
+
+  if (!params.get("q")) redirect("/?q=featured");
+
   const menuItems = [
     {
       icon: <HomeIcon />,
       title: "Home",
-      route: "/",
+      route: "featured",
     },
     {
       title: "General",
       icon: <GeneralIcon />,
-      route: "/general",
+      route: "general",
     },
     {
       title: "Business",
       icon: <BusinessIcon />,
-      route: "/business",
+      route: "business",
     },
     {
       title: "Health",
       icon: <HealthIcon />,
-      route: "/health",
+      route: "health",
     },
     {
       title: "Science",
       icon: <ScienceIcon />,
-      route: "/science",
+      route: "science",
     },
     {
       title: "Sports",
       icon: <SportsIcon />,
-      route: "/sports",
+      route: "sports",
     },
     {
       title: "Technology",
       icon: <TechnologyIcon />,
-      route: "/technology",
+      route: "technology",
     },
   ];
 
@@ -60,7 +68,12 @@ export const Menu = () => {
           icon={item.icon}
           text={item.title}
           key={idx}
-          active={item.route === path}
+          active={item.route === param}
+          onClick={() => {
+            redirectSearchParams.delete("q");
+            redirectSearchParams.append("q", item.route);
+            router.push(`?${redirectSearchParams.toString()}`);
+          }}
         />
       ))}
     </div>

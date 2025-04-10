@@ -1,4 +1,5 @@
 import styles from "./page.module.scss";
+import { AuthContainer } from "@app/components/auth-container/auth-container";
 import { CardDisplay } from "@app/components/card-display/card-display";
 import { Logo } from "@app/components/logo/logo";
 import { Menu } from "@app/components/menu/menu";
@@ -10,8 +11,11 @@ export default function Home() {
     <div className={styles["home-container"]}>
       <div className={styles["home-data-container"]}>
         <div className={styles["search-bar"]}>
-          <Logo lg />
-          <SearchBar includeButton />
+          <div className={styles["base-search-bar"]}>
+            <Logo lg />
+            <SearchBar includeButton />
+          </div>
+          <AuthContainer />
         </div>
         <Separator.Root className={styles.separator} />
         <div className={styles["home-content"]}>

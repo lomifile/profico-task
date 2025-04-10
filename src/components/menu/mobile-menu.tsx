@@ -20,7 +20,7 @@ import {
   TechnologyIcon,
 } from "@app/ui/custom-icons/icons";
 import { SearchBar } from "../search-bar/search-bar";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Spinner } from "@app/ui/custom-icons/spinner";
 import { useEffect, useState } from "react";
@@ -28,44 +28,48 @@ import { signOut } from "next-auth/react";
 
 export const MobileMenu = () => {
   const { data, status, update } = useSession();
-  const [isOpen, setIsOpen] = useState(false);
   const path = usePathname();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const queryParams = useSearchParams();
+  const param = queryParams.get("q");
   const router = useRouter();
+  const redirectSearchParams = new URLSearchParams(queryParams);
+
   const menuItems = [
     {
       icon: <HomeIcon />,
       title: "Home",
-      route: "/",
+      route: "featured",
     },
     {
       title: "General",
       icon: <GeneralIcon />,
-      route: "/general",
+      route: "general",
     },
     {
       title: "Business",
       icon: <BusinessIcon />,
-      route: "/business",
+      route: "business",
     },
     {
       title: "Health",
       icon: <HealthIcon />,
-      route: "/health",
+      route: "health",
     },
     {
       title: "Science",
       icon: <ScienceIcon />,
-      route: "/science",
+      route: "science",
     },
     {
       title: "Sports",
       icon: <SportsIcon />,
-      route: "/sports",
+      route: "sports",
     },
     {
       title: "Technology",
       icon: <TechnologyIcon />,
-      route: "/technology",
+      route: "technology",
     },
   ];
 
@@ -94,10 +98,16 @@ export const MobileMenu = () => {
           <div className={styles["navigation"]}>
             {menuItems.map(({ title, icon, route }, idx) => (
               <MenuButton
-                active={path === route}
+                active={param === route}
                 key={`__menu_item_${idx}`}
                 text={title}
                 icon={icon}
+                onClick={() => {
+                  redirectSearchParams.delete("q");
+                  redirectSearchParams.append("q", route);
+                  setIsOpen(false);
+                  router.push(`?${redirectSearchParams.toString()}`);
+                }}
               />
             ))}
           </div>

@@ -1,21 +1,63 @@
 "use client";
+
 import { fetchNews } from "@app/actions/fetch-news";
 import styles from "./card-display.module.scss";
 import { Card } from "@app/ui/card/card";
 import { Spinner } from "@app/ui/custom-icons/spinner";
-import { useQuery } from "@tanstack/react-query";
+import {
+  DefaultError,
+  InfiniteData,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import clsx from "clsx";
 import { useState } from "react";
 import { Latest } from "../latest/latest";
 import { LatestItem } from "../latest/latest-item";
-import { News } from "@app/types/model/news";
+import { useSearchParams } from "next/navigation";
+import { useInfiniteScroll } from "@app/hooks/use-infinite-scroll";
+import {
+  NextPageParam,
+  PaginationData,
+} from "@app/types/model/pagination-data";
+import { Loading } from "../loading/loading";
 
 export const CardDisplay = () => {
+  const queryParams = useSearchParams();
+  let q = queryParams.get("q");
+  if (!q) q = "featured";
+
   const [currentDisplay, setCurrentDisplay] = useState("featured");
-  const { data, isLoading } = useQuery<News>({
-    queryKey: ["articles", currentDisplay],
-    queryFn: async () => await fetchNews(currentDisplay),
+  const {
+    data: news,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery<
+    PaginationData,
+    DefaultError,
+    InfiniteData<PaginationData, NextPageParam>,
+    string[],
+    NextPageParam
+  >({
+    queryKey: ["articles", q],
+    queryFn: async ({ pageParam }) => await fetchNews(pageParam),
+    getNextPageParam: (lastPage) =>
+      lastPage.canLoadMore ? lastPage.nextPageParam : undefined,
+    initialPageParam: {
+      q,
+      date: new Date().toISOString().split("T")[0], // start from the latest date
+      page: 1,
+      daysLoaded: 0,
+    },
   });
+
+  const [ref] = useInfiniteScroll(hasNextPage, fetchNextPage);
+  const data = news?.pages.flatMap((el) => el.articles) || [];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles["cards-container"]}>
@@ -50,7 +92,7 @@ export const CardDisplay = () => {
         {isLoading && <Spinner />}
         {data && (
           <div className={styles["grid-articles"]}>
-            {data?.articles.slice(0, 2).map((el, idx) => (
+            {data?.slice(0, 2).map((el, idx) => (
               <Card
                 title={el.title}
                 image={el.urlToImage}
@@ -59,8 +101,8 @@ export const CardDisplay = () => {
               />
             ))}
             <Latest className={styles["latest-items"]}>
-              {data?.articles
-                .sort(
+              {data
+                ?.sort(
                   (a, b) =>
                     new Date(b.publishedAt).getTime() -
                     new Date(a.publishedAt).getTime()
@@ -69,7 +111,7 @@ export const CardDisplay = () => {
                   <LatestItem data={el} key={`__latest_item_${idx}`} />
                 ))}
             </Latest>
-            {data?.articles.slice(2).map((el, idx) => (
+            {data?.slice(2).map((el, idx) => (
               <Card
                 title={el.title}
                 image={el.urlToImage}
@@ -82,9 +124,8 @@ export const CardDisplay = () => {
         )}
       </div>
       <div className={styles["mobile-cards"]}>
-        {isLoading && <Spinner />}
         {currentDisplay === "featured" &&
-          data?.articles.map((el, idx: number) => (
+          data?.map((el, idx: number) => (
             <Card
               title={el.title}
               image={el.urlToImage}
@@ -96,8 +137,8 @@ export const CardDisplay = () => {
       {currentDisplay === "latest" && (
         <div className={styles["mobile-latest"]}>
           <Latest>
-            {data?.articles
-              .sort(
+            {data
+              ?.sort(
                 (a, b) =>
                   new Date(b.publishedAt).getTime() -
                   new Date(a.publishedAt).getTime()
@@ -108,6 +149,7 @@ export const CardDisplay = () => {
           </Latest>
         </div>
       )}
+      <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
     </div>
   );
 };

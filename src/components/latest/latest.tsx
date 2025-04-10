@@ -4,7 +4,7 @@ import styles from "./latest.module.scss";
 import { HTMLAttributes } from "react";
 import clsx from "clsx";
 
-export interface LatestProps extends HTMLAttributes<HTMLDivElement> {}
+export type LatestProps = HTMLAttributes<HTMLDivElement>;
 
 export const Latest = ({ children, className }: LatestProps) => {
   return (

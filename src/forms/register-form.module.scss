@@ -8,3 +8,10 @@
   padding: 20px 5px;
   height: max-content;
 }
+
+.user {
+  display: flex;
+  padding: 1em;
+  flex-direction: row;
+  justify-content: flex-end;
+}

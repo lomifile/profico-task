@@ -2,6 +2,7 @@ import styles from "./navbar.module.scss";
 import { Logo } from "@app/components/logo/logo";
 import { MobileMenu } from "@app/components/menu/mobile-menu";
 import { Button } from "@app/ui/button/button";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
@@ -20,9 +21,11 @@ export const Navbar = () => {
             <Button color="transparent" className={styles["no-thanks-button"]}>
               No, thanks
             </Button>
-            <Button className={styles["get-button"]} color="white">
-              Get
-            </Button>
+            <Link href="/?q=featured">
+              <Button className={styles["get-button"]} color="white">
+                Get
+              </Button>
+            </Link>
           </div>
         </div>
         <MobileMenu />

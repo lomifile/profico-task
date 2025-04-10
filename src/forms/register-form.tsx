@@ -6,6 +6,7 @@ import { handleRegister } from "@app/actions/register";
 import { Button } from "@app/ui/button/button";
 import { Input } from "@app/ui/input/input";
 import { useActionState } from "react";
+import Link from "next/link";
 
 export const RegisterForm = () => {
   const [state, formAction, pending] = useActionState(handleRegister, {
@@ -64,6 +65,10 @@ export const RegisterForm = () => {
           onChange={() => setFieldError("confirm")}
           errorMessage={fieldErrors.confirm}
         />
+        <div className={styles["user"]}>
+          Already user? Login&nbsp;
+          <Link href="/login">here</Link>
+        </div>
         <Button type="submit" isLoading={pending}>
           Submit
         </Button>

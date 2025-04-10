@@ -6,6 +6,7 @@ import { loginAction } from "@app/actions/login";
 import { Input } from "@app/ui/input/input";
 import { useActionState } from "react";
 import { useActionErrors } from "@app/hooks/use-action-errors";
+import Link from "next/link";
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, {
@@ -40,6 +41,10 @@ export function LoginForm() {
           onChange={() => setFieldError("password")}
           errorMessage={fieldErrors.password}
         />
+        <div className={styles["not-user"]}>
+          Don&apos;t have account? Register&nbsp;
+          <Link href="/register">here</Link>
+        </div>
         <div className={styles["login-button"]}>
           <Button type="submit" isLoading={pending}>
             Login

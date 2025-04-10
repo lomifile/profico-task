@@ -1,7 +1,8 @@
+import { Articles } from "@app/types/model/news";
 import styles from "./latest-item.module.scss";
 
 export interface LatestItemProps {
-  data?: any;
+  data: Articles;
 }
 
 export const LatestItem = ({ data }: LatestItemProps) => {

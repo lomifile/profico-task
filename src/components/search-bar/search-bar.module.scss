@@ -26,3 +26,9 @@
 .search-bar-input:placeholder {
   color: $color-gray-100;
 }
+
+.search-button {
+  width: fit-content !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}

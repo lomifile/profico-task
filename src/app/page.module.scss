@@ -17,3 +17,59 @@
   width: $full;
   overflow-y: auto;
 }
+
+.menu-container {
+  display: none;
+}
+
+.home-data-container {
+  width: $full;
+}
+
+.search-bar {
+  display: none;
+  gap: 3em;
+  align-items: center;
+  padding: 1em;
+  width: 80%;
+}
+
+.separator {
+  width: 95%;
+  height: 1px;
+  opacity: 0.1;
+  background-color: $color-gray-80;
+}
+
+@media (width >= 24em) {
+  .home-data-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 1.75em;
+  }
+
+  .home-container {
+    align-items: center;
+
+    overflow-y: none;
+  }
+
+  .home-content {
+    display: flex;
+    gap: 1em;
+    height: fit-content;
+  }
+
+  .search-bar {
+    display: flex;
+    height: fit-content;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: fit-content;
+  }
+}

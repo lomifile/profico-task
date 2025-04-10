@@ -1,0 +1,11 @@
+@use "@app/styles/variables" as *;
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(1, 4em);
+  grid-template-rows: 4em;
+  gap: 0.8em;
+  justify-content: center;
+  width: fit-content;
+  width: $full;
+}

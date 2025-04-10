@@ -15,9 +15,7 @@ body {
 
 :root {
   font-family: Inter, sans-serif;
-  font-feature-settings:
-    "liga" 1,
-    "calt" 1;
+  font-feature-settings: "liga" 1, "calt" 1;
 }
 
 @supports (font-variation-settings: normal) {

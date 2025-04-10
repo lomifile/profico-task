@@ -23,7 +23,7 @@ export const CardDisplay = () => {
         <button
           className={clsx(
             styles["filter-button"],
-            currentDisplay === "featured" && styles["active"],
+            currentDisplay === "featured" && styles["active"]
           )}
           onClick={() => {
             setCurrentDisplay("featured");
@@ -34,7 +34,7 @@ export const CardDisplay = () => {
         <button
           className={clsx(
             styles["filter-button"],
-            currentDisplay === "latest" && styles["active"],
+            currentDisplay === "latest" && styles["active"]
           )}
           onClick={() => {
             setCurrentDisplay("latest");
@@ -42,6 +42,46 @@ export const CardDisplay = () => {
         >
           Latest
         </button>
+      </div>
+      <div className={styles["cards-title"]}>
+        <h3>News</h3>
+      </div>
+      <div className={styles["desktop-cards"]}>
+        <div className={styles["with-latest"]}>
+          <div className={styles["grid-articles"]}>
+            {data?.articles.slice(0, 4).map((el, idx) => (
+              <Card
+                title={el.title}
+                image={el.urlToImage}
+                category={el.source.name}
+                key={`__card__${idx}`}
+              />
+            ))}
+          </div>
+          <div className={styles["latest-container"]}>
+            <Latest>
+              {data?.articles
+                .sort(
+                  (a, b) =>
+                    new Date(b.publishedAt).getTime() -
+                    new Date(a.publishedAt).getTime()
+                )
+                .map((el, idx: number) => (
+                  <LatestItem data={el} key={`__latest_item_${idx}`} />
+                ))}
+            </Latest>
+          </div>
+        </div>
+        <div className={styles["rest-grid-articles"]}>
+          {data?.articles.slice(4).map((el, idx) => (
+            <Card
+              title={el.title}
+              image={el.urlToImage}
+              category={el.source.name}
+              key={`__card__${idx}`}
+            />
+          ))}
+        </div>
       </div>
       <div className={styles["mobile-cards"]}>
         {isLoading && <Spinner />}
@@ -61,7 +101,7 @@ export const CardDisplay = () => {
             .sort(
               (a, b) =>
                 new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime(),
+                new Date(a.publishedAt).getTime()
             )
             .map((el, idx: number) => (
               <LatestItem data={el} key={`__latest_item_${idx}`} />

@@ -40,3 +40,9 @@
     color: $color-blue;
   }
 }
+
+@media (width >= 24em) {
+  .items {
+    min-height: 28em;
+  }
+}

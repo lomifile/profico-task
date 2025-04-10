@@ -52,3 +52,25 @@
     text-overflow: ellipsis;
   }
 }
+
+.card-author {
+  display: none;
+}
+
+@media (width >= 64em) {
+  .card-content {
+    max-height: 15em;
+    padding: 1em;
+  }
+
+  .card-image {
+    max-height: 14em;
+  }
+
+  .card-author {
+    display: flex;
+    padding: 1em 0 0.2em 0;
+    font-weight: 400;
+    font-size: 0.75em;
+  }
+}

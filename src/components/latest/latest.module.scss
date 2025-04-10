@@ -1,18 +1,20 @@
 @use "@app/styles/variables" as *;
 
 .latest {
+  display: flex;
+  flex-direction: column;
   background-color: white;
-  width: $full;
   border-radius: 8px;
   box-shadow: 0px 1px 2px -1px #c8cad1;
-  position: relative;
+  overflow: hidden;
+  max-height: 100%; // only if the parent allows it to grow
+  min-height: 0; // allows flex/grid overflow to apply
 }
 
 .bottom-container,
 .title-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
   color: $color-gray;
   align-items: center;
   padding: 0.2em 1em;
@@ -25,10 +27,11 @@
 }
 
 .items {
-  width: $full;
-  max-height: 20em;
-  height: auto;
+  flex: 1;
   overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .bottom-container {
@@ -38,11 +41,5 @@
 
   & > span {
     color: $color-blue;
-  }
-}
-
-@media (width >= 24em) {
-  .items {
-    min-height: 28em;
   }
 }

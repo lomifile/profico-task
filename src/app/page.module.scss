@@ -35,23 +35,26 @@
 }
 
 .separator {
+  display: none;
   width: 95%;
   height: 1px;
   opacity: 0.1;
   background-color: $color-gray-80;
 }
 
-@media (width >= 24em) {
+@media (min-width: 62em) {
+  .search-bar {
+    display: block;
+  }
+
   .home-data-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
     gap: 1.75em;
   }
 
   .home-container {
     align-items: center;
-
     overflow-y: none;
   }
 
@@ -71,5 +74,11 @@
     flex-direction: column;
     align-items: flex-end;
     width: fit-content;
+  }
+}
+
+@media (min-width: 75em) {
+  .home-data-container {
+    width: 50%;
   }
 }

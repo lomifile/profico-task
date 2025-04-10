@@ -22,6 +22,10 @@
   color: $color-gray;
 }
 
+.navbar-content {
+  display: none;
+}
+
 @media (width >= 64em) {
   .logo-container {
     display: none;

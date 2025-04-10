@@ -1,11 +1,17 @@
 @use "@app/styles/variables" as *;
 
 .menu {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(1, 4em);
   grid-template-rows: 4em;
   gap: 0.8em;
   justify-content: center;
   width: fit-content;
   width: $full;
+}
+
+@media (width >= 64em) {
+  .menu {
+    display: grid;
+  }
 }

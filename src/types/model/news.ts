@@ -6,6 +6,7 @@ export interface Articles {
   title: string;
   url: string;
   urlToImage: string;
+  author: string;
 }
 
 export interface Source {

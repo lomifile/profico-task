@@ -47,9 +47,10 @@ export const CardDisplay = () => {
         <h3>News</h3>
       </div>
       <div className={styles["desktop-cards"]}>
-        <div className={styles["with-latest"]}>
+        {isLoading && <Spinner />}
+        {data && (
           <div className={styles["grid-articles"]}>
-            {data?.articles.slice(0, 4).map((el, idx) => (
+            {data?.articles.slice(0, 2).map((el, idx) => (
               <Card
                 title={el.title}
                 image={el.urlToImage}
@@ -57,9 +58,7 @@ export const CardDisplay = () => {
                 key={`__card__${idx}`}
               />
             ))}
-          </div>
-          <div className={styles["latest-container"]}>
-            <Latest>
+            <Latest className={styles["latest-items"]}>
               {data?.articles
                 .sort(
                   (a, b) =>
@@ -70,18 +69,17 @@ export const CardDisplay = () => {
                   <LatestItem data={el} key={`__latest_item_${idx}`} />
                 ))}
             </Latest>
+            {data?.articles.slice(2).map((el, idx) => (
+              <Card
+                title={el.title}
+                image={el.urlToImage}
+                category={el.source.name}
+                author={el.author}
+                key={`__card__${idx}`}
+              />
+            ))}
           </div>
-        </div>
-        <div className={styles["rest-grid-articles"]}>
-          {data?.articles.slice(4).map((el, idx) => (
-            <Card
-              title={el.title}
-              image={el.urlToImage}
-              category={el.source.name}
-              key={`__card__${idx}`}
-            />
-          ))}
-        </div>
+        )}
       </div>
       <div className={styles["mobile-cards"]}>
         {isLoading && <Spinner />}
@@ -96,17 +94,19 @@ export const CardDisplay = () => {
           ))}
       </div>
       {currentDisplay === "latest" && (
-        <Latest>
-          {data?.articles
-            .sort(
-              (a, b) =>
-                new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime()
-            )
-            .map((el, idx: number) => (
-              <LatestItem data={el} key={`__latest_item_${idx}`} />
-            ))}
-        </Latest>
+        <div className={styles["mobile-latest"]}>
+          <Latest>
+            {data?.articles
+              .sort(
+                (a, b) =>
+                  new Date(b.publishedAt).getTime() -
+                  new Date(a.publishedAt).getTime()
+              )
+              .map((el, idx: number) => (
+                <LatestItem data={el} key={`__latest_item_${idx}`} />
+              ))}
+          </Latest>
+        </div>
       )}
     </div>
   );

@@ -56,7 +56,7 @@ export const CardDisplay = () => {
       lastPage.canLoadMore ? lastPage.nextPageParam : undefined,
     initialPageParam: {
       q,
-      date: new Date().toISOString().split("T")[0], // start from the latest date
+      date: new Date().toISOString().split("T")[0],
       page: 1,
       daysLoaded: 0,
     },

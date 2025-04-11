@@ -17,6 +17,26 @@
   display: block;
 }
 
+.bookmark-button {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  border: 0;
+  outline: 0;
+  color: white;
+  background: transparent;
+}
+
+.filled {
+  & > svg {
+    fill: white;
+  }
+}
+
+.bookmark-button:hover {
+  cursor: pointer;
+}
+
 .card-content {
   position: absolute;
   bottom: 0;

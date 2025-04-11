@@ -13,8 +13,16 @@ export const { handlers, auth, signOut, signIn } = NextAuth({
     authorized: async () => {
       return true;
     },
-    async session({ session }) {
-      return session;
+    async jwt({ token }) {
+      return {
+        ...token,
+      };
+    },
+    async session({ token, session }) {
+      return {
+        ...token,
+        ...session,
+      };
     },
   },
   session: {

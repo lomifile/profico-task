@@ -27,6 +27,7 @@ export const credentialsProvider = CredentialsProvider({
 
     const { email, password } = result.data;
     const user = await getUserFromDb(email);
+    console.log(user);
     if (!user) {
       throw new Error("Invalid email or password");
     }
@@ -36,7 +37,7 @@ export const credentialsProvider = CredentialsProvider({
     if (!user.hash) throw new Error("There was an unexpected error");
     const isValid = await bcrypt.compare(password, user.hash);
     if (!isValid) throw new Error("Invalid email or password");
-
-    return omit(user, ["hash", "verification_token", "uid"]);
+    const data = omit(user, ["hash", "verification_token", "uid"]);
+    return data;
   },
 });

@@ -15,7 +15,6 @@
   padding: 0;
   height: $full;
   width: $full;
-  overflow-y: auto;
 }
 
 .menu-container {
@@ -75,7 +74,6 @@
     display: flex;
     gap: 1em;
     height: fit-content;
-    overflow-y: hidden;
   }
 
   .search-bar {

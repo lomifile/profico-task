@@ -8,7 +8,7 @@ export type NextPageParam = {
 };
 
 export type PaginationData = {
-  articles: Articles;
+  articles: Articles[];
   nextPageParam: NextPageParam;
   canLoadMore: boolean;
 };

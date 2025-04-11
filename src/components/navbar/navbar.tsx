@@ -1,6 +1,6 @@
 import styles from "./navbar.module.scss";
 import { Logo } from "@app/components/logo/logo";
-import { MobileMenu } from "@app/components/menu/mobile-menu";
+import { MobileMenu } from "@app/components/mobile-menu/mobile-menu";
 import { Button } from "@app/ui/button/button";
 import Link from "next/link";
 

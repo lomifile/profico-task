@@ -22,6 +22,20 @@
       "when": 1743790563315,
       "tag": "0002_nosy_madripoor",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1744350026145,
+      "tag": "0003_freezing_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1744360880265,
+      "tag": "0004_daily_sandman",
+      "breakpoints": true
     }
   ]
 }

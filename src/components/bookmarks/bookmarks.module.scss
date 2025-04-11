@@ -1,0 +1,20 @@
+@use "@app/styles/variables" as *;
+
+.mobile-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100%);
+  gap: 1em;
+  padding: 0.5em 0;
+  overflow-y: auto;
+  width: $full;
+}
+
+.bookmarks-container {
+  width: $full;
+}
+
+@media (width >= 64em) {
+  .mobile-cards {
+    display: none;
+  }
+}

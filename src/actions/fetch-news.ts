@@ -1,6 +1,11 @@
 "use server";
+import { auth } from "@app/lib/auth";
+import { db } from "@app/lib/db";
+import { bookmarks } from "@app/lib/schema";
+import { Articles } from "@app/types/model/news";
 import { NextPageParam } from "@app/types/model/pagination-data";
 import { buildfilter } from "@app/utils/build-filter";
+import { eq } from "drizzle-orm";
 
 const PAGE_SIZE = 100;
 const MAX_DAYS = 100;
@@ -13,6 +18,8 @@ export const fetchNews = async (
     daysLoaded: 0,
   }
 ) => {
+  const session = await auth();
+  if (!session) throw new Error("No auth");
   const toDate = pageParam.date;
   const fromDate = new Date(toDate);
   fromDate.setDate(fromDate.getDate() - 1);
@@ -33,7 +40,18 @@ export const fetchNews = async (
     throw new Error("Error");
   }
 
-  const { articles } = await req.json();
+  let { articles } = (await req.json()) as { articles: Articles[] };
+  const favorites = await db.query.bookmarks.findMany({
+    where: eq(bookmarks.userId, session.id),
+  });
+
+  articles = articles.map((article) => {
+    const favorite = favorites.filter(
+      (favorite) => favorite.data === article.url
+    );
+    if (favorite.length > 0) return { ...article, favorite: true };
+    return { ...article, favorite: false };
+  });
 
   return {
     articles,

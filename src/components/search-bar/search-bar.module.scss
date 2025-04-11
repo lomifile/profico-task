@@ -27,6 +27,22 @@
   color: $color-gray-100;
 }
 
+.clear {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+  border: none;
+  background: $color-gray-100;
+  color: white;
+  border-radius: 100em;
+}
+
+.clear:hover {
+  cursor: pointer;
+}
+
 .search-button {
   width: fit-content !important;
   text-transform: uppercase;

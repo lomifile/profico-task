@@ -3,28 +3,38 @@
 import { fetchNews } from "@app/actions/fetch-news";
 import styles from "./card-display.module.scss";
 import { Card } from "@app/ui/card/card";
-import { Spinner } from "@app/ui/custom-icons/spinner";
 import {
   DefaultError,
   InfiniteData,
   useInfiniteQuery,
+  useMutation,
 } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useState } from "react";
 import { Latest } from "../latest/latest";
 import { LatestItem } from "../latest/latest-item";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteScroll } from "@app/hooks/use-infinite-scroll";
+import { CardGrid } from "@app/components/grid/grid";
 import {
   NextPageParam,
   PaginationData,
 } from "@app/types/model/pagination-data";
 import { Loading } from "../loading/loading";
+import { Articles } from "@app/types/model/news";
+import { AddBookmark } from "@app/actions/add-bookmark";
 
 export const CardDisplay = () => {
   const queryParams = useSearchParams();
   let q = queryParams.get("q");
+  let filter = queryParams.get("title");
+  const router = useRouter();
+  if (!filter) filter = "";
   if (!q) q = "featured";
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (item: Articles) => await AddBookmark(item),
+  });
 
   const [currentDisplay, setCurrentDisplay] = useState("featured");
   const {
@@ -40,7 +50,7 @@ export const CardDisplay = () => {
     string[],
     NextPageParam
   >({
-    queryKey: ["articles", q],
+    queryKey: ["articles", q, filter],
     queryFn: async ({ pageParam }) => await fetchNews(pageParam),
     getNextPageParam: (lastPage) =>
       lastPage.canLoadMore ? lastPage.nextPageParam : undefined,
@@ -54,6 +64,12 @@ export const CardDisplay = () => {
 
   const [ref] = useInfiniteScroll(hasNextPage, fetchNextPage);
   const data = news?.pages.flatMap((el) => el.articles) || [];
+
+  const markAsFavorite = (el: Articles) => {
+    router.refresh();
+    mutateAsync(el);
+    el.favorite = !el.favorite;
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -88,41 +104,36 @@ export const CardDisplay = () => {
       <div className={styles["cards-title"]}>
         <h3>News</h3>
       </div>
-      <div className={styles["desktop-cards"]}>
-        {isLoading && <Spinner />}
-        {data && (
-          <div className={styles["grid-articles"]}>
-            {data?.slice(0, 2).map((el, idx) => (
-              <Card
-                title={el.title}
-                image={el.urlToImage}
-                category={el.source.name}
-                key={`__card__${idx}`}
-              />
+      {data && (
+        <CardGrid>
+          {data?.slice(0, 2).map((el, idx) => (
+            <Card
+              title={el.title}
+              image={el.urlToImage}
+              category={el.source.name}
+              markFavorite={() => markAsFavorite(el)}
+              inFavorites={el.favorite}
+              key={`__card__${idx}`}
+            />
+          ))}
+          <Latest className={styles["latest-items"]}>
+            {data.map((el, idx: number) => (
+              <LatestItem data={el} key={`__latest_item_${idx}`} />
             ))}
-            <Latest className={styles["latest-items"]}>
-              {data
-                ?.sort(
-                  (a, b) =>
-                    new Date(b.publishedAt).getTime() -
-                    new Date(a.publishedAt).getTime()
-                )
-                .map((el, idx: number) => (
-                  <LatestItem data={el} key={`__latest_item_${idx}`} />
-                ))}
-            </Latest>
-            {data?.slice(2).map((el, idx) => (
-              <Card
-                title={el.title}
-                image={el.urlToImage}
-                category={el.source.name}
-                author={el.author}
-                key={`__card__${idx}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+          </Latest>
+          {data?.slice(2).map((el, idx) => (
+            <Card
+              title={el.title}
+              image={el.urlToImage}
+              category={el.source.name}
+              author={el.author}
+              key={`__card__${idx}`}
+              markFavorite={() => markAsFavorite(el)}
+              inFavorites={el.favorite}
+            />
+          ))}
+        </CardGrid>
+      )}
       <div className={styles["mobile-cards"]}>
         {currentDisplay === "featured" &&
           data?.map((el, idx: number) => (
@@ -131,21 +142,17 @@ export const CardDisplay = () => {
               image={el.urlToImage}
               category={el.source.name}
               key={`__card__${idx}`}
+              markFavorite={() => markAsFavorite(el)}
+              inFavorites={el.favorite}
             />
           ))}
       </div>
       {currentDisplay === "latest" && (
         <div className={styles["mobile-latest"]}>
           <Latest>
-            {data
-              ?.sort(
-                (a, b) =>
-                  new Date(b.publishedAt).getTime() -
-                  new Date(a.publishedAt).getTime()
-              )
-              .map((el, idx: number) => (
-                <LatestItem data={el} key={`__latest_item_${idx}`} />
-              ))}
+            {data?.map((el, idx: number) => (
+              <LatestItem data={el} key={`__latest_item_${idx}`} />
+            ))}
           </Latest>
         </div>
       )}

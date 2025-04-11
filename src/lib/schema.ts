@@ -58,3 +58,20 @@ export const verificationTokens = sqliteTable(
   },
   (vt) => [primaryKey({ columns: [vt.user_id, vt.token] })]
 );
+
+export const bookmarks = sqliteTable(
+  "bookmarks",
+  {
+    id: integer().notNull().primaryKey({ autoIncrement: true }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id),
+    link: text().notNull(),
+    data: text({ mode: "json" }).notNull(),
+  },
+  (bookmarks) => [
+    primaryKey({
+      columns: [bookmarks.id],
+    }),
+  ]
+);

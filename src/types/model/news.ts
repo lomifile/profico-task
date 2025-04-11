@@ -7,6 +7,7 @@ export interface Articles {
   url: string;
   urlToImage: string;
   author: string;
+  favorite: boolean;
 }
 
 export interface Source {

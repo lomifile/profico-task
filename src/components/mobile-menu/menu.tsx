@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { Loading } from "../loading/loading";
 
 export const Menu = () => {
+  let items = menuItems;
   const { status } = useSession();
   const queryParams = useSearchParams();
   const param = queryParams.get("q");
@@ -18,9 +19,12 @@ export const Menu = () => {
     return <Loading />;
   }
 
+  if (status === "unauthenticated")
+    items = menuItems.filter((el) => !el.isAuth);
+
   return (
     <div className={styles["menu"]}>
-      {menuItems.map((item, idx) => (
+      {items.map((item, idx) => (
         <MenuButton
           title={item.title}
           icon={item.icon}

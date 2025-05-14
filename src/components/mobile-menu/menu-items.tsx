@@ -49,5 +49,6 @@ export const menuItems = [
     title: "Bookmarks",
     icon: <Bookmark />,
     route: "bookmarks",
+    isAuth: true,
   },
 ];

@@ -22,7 +22,7 @@ export const Card = ({
   const { status } = useSession();
   return (
     <div className={styles.card}>
-      <img src={image} className={styles["card-image"]} />
+      <img src={image} className={styles["card-image"]} alt="logo" />
       {markFavorite && status === "authenticated" && (
         <button
           className={styles["bookmark-button"]}

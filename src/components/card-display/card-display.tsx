@@ -23,12 +23,21 @@ import {
 import { Loading } from "../loading/loading";
 import { Articles } from "@app/types/model/news";
 import { AddBookmark } from "@app/actions/add-bookmark";
+import { useSession } from "next-auth/react";
 
 export const CardDisplay = () => {
   const queryParams = useSearchParams();
   let q = queryParams.get("q");
   let filter = queryParams.get("title");
+  const shouldUpdate = queryParams.get("isAuth");
+
   const router = useRouter();
+  const { status, update } = useSession();
+  if (shouldUpdate) {
+    update();
+    router.replace("/");
+  }
+
   if (!filter) filter = "";
   if (!q) q = "featured";
 
@@ -71,7 +80,7 @@ export const CardDisplay = () => {
     el.favorite = !el.favorite;
   };
 
-  if (isLoading) {
+  if (isLoading || status === "loading") {
     return <Loading />;
   }
 

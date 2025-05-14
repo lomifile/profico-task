@@ -6,6 +6,7 @@ import { ActionResult } from "@app/types/action-result";
 import { formatError } from "@app/utils/format-error";
 import { tryCatch } from "@app/utils/tryCatch";
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
 export async function loginAction(
   prevsState: ActionResult,
@@ -25,8 +26,7 @@ export async function loginAction(
     signIn("credentials", {
       email,
       password,
-      redirect: true,
-      redirectTo: "/",
+      redirect: false,
     }),
   );
 
@@ -38,5 +38,6 @@ export async function loginAction(
     }
     throw error;
   }
-  return {};
+
+  redirect("/?q=featured&isAuth=true");
 }

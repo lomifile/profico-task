@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, {
-    errors: {},
+    errors: undefined,
   });
   const { errors, setFieldError } = useActionErrors(state);
 

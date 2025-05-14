@@ -61,7 +61,7 @@ export async function handleRegister(
     return user;
   };
 
-  const { data: _result, error } = await tryCatch(createUser());
+  const { error } = await tryCatch(createUser());
 
   if (error)
     return {

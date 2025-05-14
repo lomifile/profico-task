@@ -63,6 +63,5 @@ export const html = `
     </div>
   </div>
 </body>
-
 </html>
-`
+`;

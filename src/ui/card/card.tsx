@@ -1,5 +1,6 @@
 import { Bookmark } from "lucide-react";
 import styles from "./card.module.scss";
+import { useSession } from "next-auth/react";
 
 export interface CardProps {
   title: string;
@@ -18,10 +19,11 @@ export const Card = ({
   inFavorites,
   markFavorite,
 }: CardProps) => {
+  const { status } = useSession();
   return (
     <div className={styles.card}>
       <img src={image} className={styles["card-image"]} />
-      {markFavorite && (
+      {markFavorite && status === "authenticated" && (
         <button
           className={styles["bookmark-button"]}
           onClick={() => markFavorite()}

@@ -81,7 +81,7 @@ export const CardDisplay = () => {
         <button
           className={clsx(
             styles["filter-button"],
-            currentDisplay === "featured" && styles["active"]
+            currentDisplay === "featured" && styles["active"],
           )}
           onClick={() => {
             setCurrentDisplay("featured");
@@ -92,7 +92,7 @@ export const CardDisplay = () => {
         <button
           className={clsx(
             styles["filter-button"],
-            currentDisplay === "latest" && styles["active"]
+            currentDisplay === "latest" && styles["active"],
           )}
           onClick={() => {
             setCurrentDisplay("latest");
@@ -106,32 +106,36 @@ export const CardDisplay = () => {
       </div>
       {data && (
         <CardGrid>
-          {data?.slice(0, 2).map((el, idx) => (
-            <Card
-              title={el.title}
-              image={el.urlToImage}
-              category={el.source.name}
-              markFavorite={() => markAsFavorite(el)}
-              inFavorites={el.favorite}
-              key={`__card__${idx}`}
-            />
-          ))}
+          {data
+            ?.slice(0, 2)
+            .map((el, idx) => (
+              <Card
+                title={el.title}
+                image={el.urlToImage}
+                category={el.source.name}
+                markFavorite={() => markAsFavorite(el)}
+                inFavorites={el.favorite}
+                key={`__card__${idx}`}
+              />
+            ))}
           <Latest className={styles["latest-items"]}>
             {data.map((el, idx: number) => (
               <LatestItem data={el} key={`__latest_item_${idx}`} />
             ))}
           </Latest>
-          {data?.slice(2).map((el, idx) => (
-            <Card
-              title={el.title}
-              image={el.urlToImage}
-              category={el.source.name}
-              author={el.author}
-              key={`__card__${idx}`}
-              markFavorite={() => markAsFavorite(el)}
-              inFavorites={el.favorite}
-            />
-          ))}
+          {data
+            ?.slice(2)
+            .map((el, idx) => (
+              <Card
+                title={el.title}
+                image={el.urlToImage}
+                category={el.source.name}
+                author={el.author}
+                key={`__card__${idx}`}
+                markFavorite={() => markAsFavorite(el)}
+                inFavorites={el.favorite}
+              />
+            ))}
         </CardGrid>
       )}
       <div className={styles["mobile-cards"]}>

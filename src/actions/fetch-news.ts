@@ -16,10 +16,9 @@ export const fetchNews = async (
     date: "2025-04-10",
     page: 1,
     daysLoaded: 0,
-  }
+  },
 ) => {
   const session = await auth();
-  if (!session) throw new Error("No auth");
   const toDate = pageParam.date;
   const fromDate = new Date(toDate);
   fromDate.setDate(fromDate.getDate() - 1);
@@ -32,7 +31,7 @@ export const fetchNews = async (
         "X-Api-Key": process.env.API_KEY || "6d3d60411cdb413d9bdb61d9af8f4baa",
       },
       method: "GET",
-    }
+    },
   );
 
   if (!req.ok) {
@@ -41,17 +40,19 @@ export const fetchNews = async (
   }
 
   let { articles } = (await req.json()) as { articles: Articles[] };
-  const favorites = await db.query.bookmarks.findMany({
-    where: eq(bookmarks.userId, session.id),
-  });
+  if (session) {
+    const favorites = await db.query.bookmarks.findMany({
+      where: eq(bookmarks.userId, session.id),
+    });
 
-  articles = articles.map((article) => {
-    const favorite = favorites.filter(
-      (favorite) => favorite.data === article.url
-    );
-    if (favorite.length > 0) return { ...article, favorite: true };
-    return { ...article, favorite: false };
-  });
+    articles = articles.map((article) => {
+      const favorite = favorites.filter(
+        (favorite) => favorite.data === article.url,
+      );
+      if (favorite.length > 0) return { ...article, favorite: true };
+      return { ...article, favorite: false };
+    });
+  }
 
   return {
     articles,

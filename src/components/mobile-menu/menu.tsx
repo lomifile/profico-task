@@ -18,8 +18,6 @@ export const Menu = () => {
     return <Loading />;
   }
 
-  if (status === "unauthenticated") menuItems.pop();
-
   return (
     <div className={styles["menu"]}>
       {menuItems.map((item, idx) => (
